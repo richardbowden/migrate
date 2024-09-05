@@ -114,6 +114,18 @@ func New(sourceURL, databaseURL string) (*Migrate, error) {
 	return m, nil
 }
 
+func NewWithSourceAndDatabaseInstance(sourceName string, sourceInstance source.Driver, databaseName string, databaseInstance database.Driver) (*Migrate, error) {
+
+	m := newCommon()
+	m.sourceName = sourceName
+	m.sourceDrv = sourceInstance
+
+	m.databaseDrv = databaseInstance
+	m.databaseName = databaseName
+
+	return m, nil
+}
+
 // NewWithDatabaseInstance returns a new Migrate instance from a source URL
 // and an existing database instance. The source URL scheme is defined by each driver.
 // Use any string that can serve as an identifier during logging as databaseName.
